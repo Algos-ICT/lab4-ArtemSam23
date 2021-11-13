@@ -1,5 +1,6 @@
 # Lib for lab №4
 
+# for task 1
 class StackItem:
     """
     value can't be None, because bottom element is None
@@ -60,6 +61,7 @@ class Stack:
         return f'[{self.top}]'
 
 
+# for task 2
 class QueueItem:
 
     def __init__(self, value=None, previous_item=None, next_item=None):
@@ -112,12 +114,31 @@ class Queue:
         return self.last.value is None
 
 
+# for task 5
+class StackWithMax(Stack):
+
+    max = Stack()
+
+    def __create_node__(self, item):
+        new_item = StackItem(item)
+        new_item.previous_item = self.top
+        self.top = new_item
+        if self.max.is_empty() or item >= int(self.max.top.value):
+            self.max.push(self.top.value)
+
+    def pop(self):
+        if self.is_empty():
+            raise IndexError('pop from an empty queue')
+        if self.max.top.value == self.top.value:
+            self.max.pop()
+        popped_element = self.top.value
+        self.top = self.top.previous_item
+        return popped_element
+
+    def get_max(self):
+        return self.max.top.value
+
+
 if __name__ == '__main__':
-    d = Queue()
-    s = input()
-    while s != 'q':
-        if s[0] == '+':
-            d.push(int(s[1:]))
-        else:
-            d.pop()
-        s = input()
+    # for tests
+    pass
