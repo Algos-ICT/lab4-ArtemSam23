@@ -51,7 +51,7 @@ class Stack:
 
     def pop(self):
         if self.is_empty():
-            raise IndexError('pop from an empty stack')
+            raise IndexError('pop from an empty queue')
         popped_element = self.top.value
         self.top = self.top.previous_item
         return popped_element
