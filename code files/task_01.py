@@ -2,8 +2,8 @@ from collections_for_lab4 import Stack
 
 
 stack = Stack()
-f = open('input_01.txt',  'r')
-output = open('output_01.txt',  'w')
+f = open('inputs/input_01.txt', 'r')
+output = open('outputs/output_01.txt', 'w')
 n = f.readline()
 for i in f.readlines():
     if i[0] == '+':
