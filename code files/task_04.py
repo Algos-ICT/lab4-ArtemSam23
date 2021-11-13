@@ -24,8 +24,8 @@ def parse_brackets(s):
     return stack.top.value[1] + 1
 
 
-f = open('input_04.txt', 'r')
-output = open('output_04.txt', 'w')
+f = open('inputs/input_04.txt', 'r')
+output = open('outputs/output_04.txt', 'w')
 lines = f.readlines()
 for line in lines:
     print(parse_brackets(line), file=output)
