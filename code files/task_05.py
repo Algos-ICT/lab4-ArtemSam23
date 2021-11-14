@@ -1,9 +1,9 @@
-from collections_for_lab4 import StackWithMax
+from collections_for_lab4 import StackWithMaxMin
 
 
 def run_test(a):
     output = open('outputs/output_05.txt', 'w')
-    stack = StackWithMax()
+    stack = StackWithMaxMin()
     for i in a:
         if i[:4] == 'push':
             stack.push(int(i[5:]))
