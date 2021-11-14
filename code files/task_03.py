@@ -1,8 +1,8 @@
 from collections_for_lab4 import Stack
 
 
-f = open('inputs/input_03.txt', 'r')
-output = open('outputs/output_03.txt', 'x')
+f = open('../inputs/input_03.txt', 'r')
+output = open('../outputs/output_03.txt', 'x')
 n = int(f.readline())
 for i in range(n):
     s = f.readline()
