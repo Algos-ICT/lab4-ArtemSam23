@@ -2,7 +2,7 @@ from collections_for_lab4 import StackWithMaxMin
 
 
 def run_test(a):
-    output = open('outputs/output_05.txt', 'w')
+    output = open('../outputs/output_05.txt', 'w')
     stack = StackWithMaxMin()
     for i in a:
         if i[:4] == 'push':
@@ -14,6 +14,6 @@ def run_test(a):
     output.close()
 
 
-f = open('inputs/input_05.txt', 'r')
+f = open('../inputs/input_05.txt', 'r')
 n = int(f.readline())
 run_test([f.readline() for _ in range(n)])
