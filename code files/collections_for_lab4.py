@@ -1,6 +1,10 @@
 """Library for Lab 4"""
 
 
+def print_arr(arr: list, file=None) -> str:
+    print(' '.join(map(str, arr)), file=file)
+
+
 # for task 1
 class Stack:
     """
@@ -215,3 +219,5 @@ if __name__ == '__main__':
             print(queue.get_max())
         elif i[:3] == 'min':
             print(queue.get_min())
+    a = [1, 2]
+    print_arr(a)
