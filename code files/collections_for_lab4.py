@@ -1,7 +1,7 @@
 """Library for Lab 4"""
 
 
-def print_arr(arr: list, file=None) -> str:
+def print_arr(arr: list, file=None):
     print(' '.join(map(str, arr)), file=file)
 
 
@@ -73,6 +73,7 @@ class Queue:
     def __init__(self, data=None):
         self.first = QueueItem()
         self.last = self.first
+        self.len = 0
         if data is not None:
             self.push(data)
 
@@ -84,6 +85,7 @@ class Queue:
         new_node = QueueItem(item, self.last)
         self.last.next_item = new_node
         self.last = new_node
+        self.len += 1
 
     def pop(self):
         """
@@ -93,6 +95,8 @@ class Queue:
 
         if self.is_empty():
             raise IndexError('pop from an empty queue')
+
+        self.len -= 1
 
         popped_item = self.first.next_item.value
 
@@ -125,7 +129,7 @@ class QueueItem:
 class StackWithMaxMin(Stack):
 
     def __init__(self):
-        Stack.__init__(self)
+        super(StackWithMaxMin, self).__init__()
         self.min = Stack()
         self.max = Stack()
 
@@ -203,21 +207,109 @@ class QueueWithMinMax:
         return str(self.stack_out)[::-1] + str(self.stack_in)
 
 
-if __name__ == '__main__':
-    queue = StackWithMaxMin()
+# for task 8
+class StackWithCalculator(Stack):
+
+    """item can be only digit or +, -, *"""
+    def __create_node__(self, item):
+
+        if item not in '+-*':
+            item = int(item)
+            super(StackWithCalculator, self).__create_node__(item)
+        else:
+            action = item
+            if action == '+':
+                self.top.previous_item.value += self.pop()
+            elif action == '-':
+                self.top.previous_item.value -= self.pop()
+            elif action == '*':
+                self.top.previous_item.value *= self.pop()
+            # for division:
+            # else:
+            #     divider = self.pop()
+            #     if divider != 0:
+            #         self.top.value /= divider
+            #     else:
+            #         raise ValueError('division by zero')
+
+
+# for task 9
+class QueueWithMid(Queue):
+
+    def __init__(self):
+
+        super(QueueWithMid, self).__init__()
+        self.mid = self.first
+
+    def __create_node__(self, item):
+
+        super(QueueWithMid, self).__create_node__(item)
+        if not self.len % 2:
+            self.mid = self.mid.next_item
+
+    def pop(self):
+        if self.last.previous_item.value is None:
+            self.mid = self.first
+        elif not self.len % 2:
+            self.mid = self.mid.next_item
+
+        return super(QueueWithMid, self).pop()
+
+    def insert_in_the_mid(self, item):
+
+        if self.mid.value is None:
+            super(QueueWithMid, self).push(self, item)
+        new_node = QueueItem(item, self.mid, self.mid.next_item)
+        self.mid.next_item = new_node
+        self.mid.next_item.previous_item = new_node
+
+
+# tests for classes
+def _test_stack_with_min_max():
+
+    stack = StackWithMaxMin()
     while True:
         i = input()
         if i == 'quit':
             break
         elif i == 'print':
-            print(queue)
+            print(stack)
         elif i[:4] == 'push':
-            queue.push(int(i[5:]))
+            stack.push(int(i[5:]))
         elif i[:3] == 'pop':
-            print(queue.pop())
+            print(stack.pop())
         elif i[:3] == 'max':
-            print(queue.get_max())
+            print(stack.get_max())
         elif i[:3] == 'min':
-            print(queue.get_min())
-    a = [1, 2]
-    print_arr(a)
+            print(stack.get_min())
+
+
+def _test_stack_with_calculator():
+
+    stack = StackWithCalculator()
+    while True:
+        i = input()
+        if i == 'quit':
+            break
+        elif i == 'print':
+            print(stack)
+        elif i[:4] == 'push':
+            stack.push(i[5:])
+
+
+def _test_queue_with_mid():
+    que_with_mid = QueueWithMid()
+    while True:
+        i = input()
+        if i == 'quit':
+            break
+        elif i[0] == '+':
+            que_with_mid.push(i[2:])
+        elif i[0] == '*':
+            que_with_mid.insert_in_the_mid(i[2:])
+        elif i[0] == '-':
+            print(que_with_mid.pop())
+
+
+# if __name__ == '__main__':
+#     _test_queue_with_mid()
