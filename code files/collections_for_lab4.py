@@ -309,7 +309,3 @@ def _test_queue_with_mid():
             que_with_mid.insert_in_the_mid(i[2:])
         elif i[0] == '-':
             print(que_with_mid.pop())
-
-
-# if __name__ == '__main__':
-#     _test_queue_with_mid()
